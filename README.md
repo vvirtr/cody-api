@@ -17,7 +17,7 @@ Here is the updated English version of the documentation, aligned with the conte
 ### Contents
 - [Key Features](#key-features)
 - [1. Get an API Key](#1-get-an-api-key)
-- [2. Quick Start](#2-quick-start-python--openai-sdk)
+- [2. Quick Start (Python + OpenAI SDK)](#2-quick-start-python--openai-sdk)
 - [3. Endpoints](#3-endpoints)
 - [4. Models](#4-models)
 - [5. Limits](#5-limits)
@@ -219,7 +219,7 @@ Updates are published in the [Telegram channel](https://t.me/codyapi).
 ### Оглавление
 - [Ключевые возможности](#ключевые-возможности)
 - [1. Получить API-ключ](#1-получить-api-ключ)
-- [2. Быстрый старт](#2-быстрый-старт-python--openai-sdk)
+- [2. Быстрый старт (Python + OpenAI SDK)](#2-быстрый-старт-python--openai-sdk)
 - [3. Эндпоинты](#3-эндпоинты)
 - [4. Модели](#4-модели)
 - [5. Ограничения](#5-ограничения)
