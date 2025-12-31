@@ -8,6 +8,8 @@
 </p>
 
 <a id="english"></a>
+Here is the updated English version of the documentation, aligned with the content of the provided Russian text:
+
 # Cody API
 
 **Free, unlimited access to modern language and multimodal models via an OpenAI-compatible endpoint.**
@@ -18,26 +20,21 @@
 - [2. Quick Start](#2-quick-start-python--openai-sdk)
 - [3. Endpoints](#3-endpoints)
 - [4. Models](#4-models)
-- [5. Rate Limits](#5-rate-limits)
+- [5. Limits](#5-limits)
 - [6. Security & Privacy](#6-security--privacy)
 - [7. Support](#7-support)
 
 ## Key Features
-- ⚡ **Drop-in replacement for the OpenAI SDK** — change two lines of code.
-- 🆓 **Zero cost** and no hard quotas.
-- 🔒 **Zero-retention** architecture: no request content is persisted.
-- 📷 **Multimodal**: text, image generation/editing, Text-to-Speech.
-- 🚀 Constantly growing catalog of **20+ SOTA models**.
+- ⚡ **Drop-in replacement for the OpenAI SDK** — just change two lines of code.
+- 🆓 **Completely free**, no hard quotas.
+- 🔒 **Zero-retention** architecture: request content is not saved.
+- 📷 **Multimodal**: text, image generation/editing, TTS.
+- 🚀 Catalog of **25+ current SOTA models**.
 
 ---
 
 ## 1. Get an API Key
-`POST https://cody.su/api/v1/get_api_key`
-
-```python
-import httpx
-print(httpx.post("https://cody.su/api/v1/get_api_key").text)  # -> cody-...
-```
+Contact the API administrator on Telegram.
 
 ## 2. Quick Start (Python + OpenAI SDK)
 
@@ -45,13 +42,12 @@ print(httpx.post("https://cody.su/api/v1/get_api_key").text)  # -> cody-...
 ```python
 from openai import OpenAI
 
-client = OpenAI(base_url="https://cody.su/api/v1", api_key="cody-...")
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
 completion = client.chat.completions.create(
-    model="gpt-4.1",
-    messages=[{"role": "user", "content": "Короткая история про котёнка"}],
+    model="gpt-5.2",
+    messages=[{"role": "user", "content": "A short story about a kitten"}],
 )
-
 print(completion.choices[0].message.content)
 ```
 
@@ -59,11 +55,11 @@ print(completion.choices[0].message.content)
 ```python
 from openai import OpenAI
 
-client = OpenAI(base_url="https://cody.su/api/v1", api_key="cody-...")
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
 completion = client.chat.completions.create(
-    model="gpt-4.1",
-    messages=[{"role": "user", "content": "Write a short story about two cats named Sonya and Alice"}],
+     model="gpt-5.2",
+    messages=[{"role": "user", "content": "Hi, write a story about 2 cats: Sonya and Alice"}],
     stream=True,
 )
 
@@ -77,10 +73,10 @@ for chunk in completion:
 from openai import OpenAI
 import base64, pathlib
 
-client = OpenAI(base_url="https://cody.su/api/v1", api_key="cody-...")
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
 img = client.images.generate(
-    model="FLUX.1-kontext",
+    model="gpt-image-1.5",
     prompt="A veterinarian listening to a baby otter’s heartbeat, children’s book style",
 )
 
@@ -92,79 +88,82 @@ pathlib.Path("otter.png").write_bytes(base64.b64decode(img.data[0].b64_json))
 from openai import OpenAI
 import base64, pathlib
 
-client = OpenAI(base_url="https://cody.su/api/v1", api_key="cody-...")
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
 edited = client.images.edit(
-    model="FLUX.1-kontext",
+    model="gpt-image-1.5",
     prompt="Add sunglasses",
     image=[open("otter.png", "rb")]
 )
 
 pathlib.Path("otter_edit.png").write_bytes(base64.b64decode(edited.data[0].b64_json))
 ```
+> **Note:** The `images.generate` and `images.edit` endpoints return images **only** in Base64 (`b64_json`).
 
-> **Note:** The `images.generate` and `images.edit` endpoints return images **only** as base64 (`b64_json`).
+### Supported Provider Groups
+In cody-api, you can specify `group` in `extra_body`; this determines which group of providers your request will be sent to.
 
-### Text-to-Speech
+Example of calling a specific group:
 ```python
 from openai import OpenAI
-import base64
 
-client = OpenAI(base_url="https://cody.su/api/v1", api_key="cody-...")
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
-audio = client.chat.completions.create(
-    model="gpt-4o-mini-audio-preview",
-    modalities=["text", "audio"],
-    audio={"voice": "alloy", "format": "wav"},
-    messages=[{"role": "user", "content": "Привет, мир!"}],
+completion = client.chat.completions.create(
+    model="claude-opus-4.5",
+    messages=[{"role": "user", "content": "Hello"}],
+    extra_body={
+        "group": "openrouter"
+    }
+)
+print(completion.choices[0].message.content)
+```
+
+### Supported Provider Parameters
+You can use any parameters supported by the providers; requests must be sent via `chat.completions`.
+
+For the `openai` provider, you can send requests to any supported endpoints.
+
+Example of working with the `fal-ai` provider:
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
+
+completion = client.chat.completions.create(
+    model="sora-2/text-to-video",
+    messages=[{"role": "user", "content": "cat"}],
+    extra_body={
+        "group": "fal-ai",
+        "duration": 8
+    }
 )
 
-open("hello.wav", "wb").write(base64.b64decode(audio.choices[0].message.audio.data))
+print(completion.choices[0].message.content)
 ```
 
-**Available voices**
+### Getting request_id
+If you specify `previous_request_id` in `extra_body` of a subsequent request, that request will be routed to the same provider as the request with that `request_id`.
 
-`alloy`, `echo`, `fable`, `onyx`, `nova`, `shimmer`, `coral`, `verse`, `ballad`, `ash`, `sage`, `amuch`, `dan`
+```python
+from openai import OpenAI
 
-**Formats:** MP3, Opus, AAC, FLAC, WAV, PCM
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
-#### Example Responses
-
-<details>
-<summary>chat.completions</summary>
-
-```TXT
-<Text answer>
-```
-</details>
-
-<details>
-<summary>images.generate</summary>
-
-```json
-{
-  "created": 1710002222,
-  "data": [
-    {"b64_json": "<base64 PNG data>"}
-  ]
-}
-```
-</details>
-
-<details>
-<summary>images.edit</summary>
-
-```json
-{
-  "created": 1710002223,
-  "data": [
-    {
-      "b64_json": "<base64 PNG data>"
+completion = client.chat.completions.with_raw_response.create(
+    model="claude-opus-4.5",
+    messages=[{"role": "user", "content": "Hello"}],
+    extra_body={
+        "group": "openrouter"
     }
-  ]
-}
+)
+
+request_id = completion.headers.get("x-request-id")
+print(request_id)
+
+completion = completion.parse()
+print(completion.choices[0].message.content)
 ```
-</details>
 
 ---
 
@@ -173,26 +172,37 @@ open("hello.wav", "wb").write(base64.b64decode(audio.choices[0].message.audio.da
 | Endpoint | Status |
 |----------|--------|
 | `chat.completions` | ✅ |
+| `responses` | ✅ |
 | `images.generate`  | ✅ |
-| `images.edit`      | ⚠️ |
+| `images.edit`      | ✅ |
 
 ## 4. Models
 ```python
 from openai import OpenAI
-print(OpenAI(base_url="https://cody.su/api/v1", api_key="...").models.list())
+import base64, pathlib
+
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
+
+for model in client.models.list().data:
+    print("id:", model.id)
+    print("cost:", model.cost)
+    print("available_groups:", model.available_groups)
+    print()
 ```
 
 #### Supported Models  
-A concise subset is shown below. See the full catalog in [MODELS.md](./MODELS.md).
+See the full catalog of supported models in [MODELS.md](./MODELS.md).
 
-## 5. Rate Limits
+
+## 5. Limits
 - 40 requests per minute
-- 20 requests per second  
-Updates will be announced in our [Telegram channel](https://t.me/codyapi).
+- 20 requests per second
+- Credit limits are assigned differently for each client.
+Updates are published in the [Telegram channel](https://t.me/codyapi).
 
 ## 6. Security & Privacy
-- Zero-retention: all data lives only in RAM.
-- No request/response logging.
+- Zero-retention: data is stored only in RAM.
+- Requests/responses are not logged.
 
 ## 7. Support
 - **Email:** vvirtr@gmail.com
