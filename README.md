@@ -370,7 +370,17 @@ print(completion.choices[0].message.content)
 ## 4. Модели
 ```python
 from openai import OpenAI
-print(OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...").models.list())
+import base64, pathlib
+
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
+
+for model in client.models.list().data:
+    print("id", model.id)
+    print("cost", model.cost)
+    print("available_groups", model.available_groups)
+    print()
+
+print(len(client.models.list().data))
 ```
 
 #### Поддерживаемые модели  
