@@ -28,8 +28,8 @@ Here is the updated English version of the documentation, aligned with the conte
 - ⚡ **Drop-in replacement for the OpenAI SDK** — just change two lines of code.
 - 🆓 **Completely free**, no hard quotas.
 - 🔒 **Zero-retention** architecture: request content is not saved.
-- 📷 **Multimodal**: text, image generation/editing, TTS.
-- 🚀 Catalog of **25+ current SOTA models**.
+- 📷 **Multimodal**: text, image generation/editing, video.
+- 🚀 Catalog of **20+ current SOTA models**.
 
 ---
 
@@ -230,8 +230,8 @@ Updates are published in the [Telegram channel](https://t.me/codyapi).
 - ⚡ **Drop-in замена OpenAI SDK** — достаточно изменить две строки кода.
 - 🆓 **Полностью бесплатно**, без жёстких квот.
 - 🔒 **Zero-retention** архитектура: содержимое запросов не сохраняется.
-- 📷 **Мультимодальность**: текст, генерация/редактирование изображений, TTS.
-- 🚀 Каталог из **25+ актуальных SOTA моделей**.
+- 📷 **Мультимодальность**: текст, генерация/редактирование изображений, video.
+- 🚀 Каталог из **20+ актуальных SOTA моделей**.
 
 ---
 
