@@ -311,6 +311,51 @@ completion = client.chat.completions.create(
 print(completion.choices[0].message.content)
 ```
 
+### Поддерживаемые параметры провайдеров
+Вы можете использовать любые поддерживаемые параметры провайдеров, отправлять запрос нужно по chat.completions.
+
+В провайдере openai можно слать запросы на любые поддерживаемые endpointы.
+
+Пример работы с провайдером fal-ai:
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
+
+completion = client.chat.completions.create(
+    model="sora-2/text-to-video",
+    messages=[{"role": "user", "content": "кот"}],
+    extra_body={
+        "group": "fal-ai",
+        "duration": 8
+    }
+)
+
+print(completion.choices[0].message.content)
+```
+
+### Получение request_id
+Если указать в следующем запросе previous_request_id в extra_body, то запрос пойдет к тому-же провайдеру, что и запрос с request_id.
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
+
+completion = client.chat.completions.with_raw_response.create(
+    model="claude-opus-4.5",
+    messages=[{"role": "user", "content": "Привет"}],
+    extra_body={
+        "group": "openrouter"
+    }
+)
+
+request_id = completion.headers.get("x-request-id")
+print(request_id)
+
+completion = completion.parse()
+print(completion.choices[0].message.content)
+```
+
 ---
 
 ## 3. Эндпоинты
