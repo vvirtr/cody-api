@@ -294,6 +294,7 @@ pathlib.Path("otter_edit.png").write_bytes(base64.b64decode(edited.data[0].b64_j
 
 ### Поддерживаемые группы провайдеров
 В cody-api вы можете указать group в extra_body, от этого зависит, к какой группе провайдеров отошлется ваш запрос.
+
 Пример вызова определенной группы:
 ```python
 from openai import OpenAI
