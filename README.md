@@ -375,12 +375,10 @@ import base64, pathlib
 client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
 for model in client.models.list().data:
-    print("id", model.id)
-    print("cost", model.cost)
-    print("available_groups", model.available_groups)
+    print("id:", model.id)
+    print("cost:", model.cost)
+    print("available_groups:", model.available_groups)
     print()
-
-print(len(client.models.list().data))
 ```
 
 #### Поддерживаемые модели  
