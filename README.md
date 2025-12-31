@@ -221,17 +221,12 @@ Updates will be announced in our [Telegram channel](https://t.me/codyapi).
 - 🆓 **Полностью бесплатно**, без жёстких квот.
 - 🔒 **Zero-retention** архитектура: содержимое запросов не сохраняется.
 - 📷 **Мультимодальность**: текст, генерация/редактирование изображений, TTS.
-- 🚀 Каталог из **20+ актуальных SOTA моделей**.
+- 🚀 Каталог из **25+ актуальных SOTA моделей**.
 
 ---
 
 ## 1. Получить API-ключ
-`POST https://cody.su/api/v1/get_api_key`
-
-```python
-import httpx
-print(httpx.post("https://cody.su/api/v1/get_api_key").text)  # -> cody-...
-```
+Напишите администратору api в telegram
 
 ## 2. Быстрый старт (Python + OpenAI SDK)
 
@@ -239,10 +234,10 @@ print(httpx.post("https://cody.su/api/v1/get_api_key").text)  # -> cody-...
 ```python
 from openai import OpenAI
 
-client = OpenAI(base_url="https://cody.su/api/v1", api_key="cody-...")
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
 completion = client.chat.completions.create(
-    model="gpt-4.1",
+    model="gpt-5.2",
     messages=[{"role": "user", "content": "Короткая история про котёнка"}],
 )
 print(completion.choices[0].message.content)
@@ -252,10 +247,10 @@ print(completion.choices[0].message.content)
 ```python
 from openai import OpenAI
 
-client = OpenAI(base_url="https://cody.su/api/v1", api_key="cody-...")
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
 completion = client.chat.completions.create(
-    model="gpt-4.1",
+     model="gpt-5.2",
     messages=[{"role": "user", "content": "Привет, напиши историю про 2х кошек: Соню и Алису"}],
     stream=True,
 )
@@ -270,10 +265,10 @@ for chunk in completion:
 from openai import OpenAI
 import base64, pathlib
 
-client = OpenAI(base_url="https://cody.su/api/v1", api_key="cody-...")
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
 img = client.images.generate(
-    model="FLUX.1-kontext",
+    model="gpt-image-1.5",
     prompt="Ветеринар слушает сердце детёныша выдры, стиль детской книги",
 )
 
@@ -285,10 +280,10 @@ pathlib.Path("otter.png").write_bytes(base64.b64decode(img.data[0].b64_json))
 from openai import OpenAI
 import base64, pathlib
 
-client = OpenAI(base_url="https://cody.su/api/v1", api_key="cody-...")
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
 edited = client.images.edit(
-    model="FLUX.1-kontext",
+    model="gpt-image-1.5",
     prompt="Add sunglasses",
     image=[open("otter.png", "rb")]
 )
@@ -297,64 +292,23 @@ pathlib.Path("otter_edit.png").write_bytes(base64.b64decode(edited.data[0].b64_j
 ```
 > **Примечание:** эндпоинты `images.generate` и `images.edit` возвращают изображения **только** в Base64 (`b64_json`).
 
-### Синтез речи
+### Поддерживаемые группы провайдеров
+В cody-api вы можете указать group в extra_body, от этого зависит, к какой группе провайдеров отошлется ваш запрос.
+Пример вызова определенной группы:
 ```python
 from openai import OpenAI
-import base64
 
-client = OpenAI(base_url="https://cody.su/api/v1", api_key="cody-...")
+client = OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...")
 
-audio = client.chat.completions.create(
-    model="gpt-4o-mini-audio-preview",
-    modalities=["text", "audio"],
-    audio={"voice": "alloy", "format": "wav"},
-    messages=[{"role": "user", "content": "Привет, мир!"}],
+completion = client.chat.completions.create(
+    model="claude-opus-4.5",
+    messages=[{"role": "user", "content": "Привет"}],
+    extra_body={
+        "group": "openrouter"
+    }
 )
-
-open("hello.wav", "wb").write_bytes(base64.b64decode(audio.choices[0].message.audio.data))
+print(completion.choices[0].message.content)
 ```
-
-**Доступные голоса**
-
-`alloy`, `echo`, `fable`, `onyx`, `nova`, `shimmer`, `coral`, `verse`, `ballad`, `ash`, `sage`, `amuch`, `dan`
-
-**Formats:** MP3, Opus, AAC, FLAC, WAV, PCM
-
-#### Примеры ответов
-
-<details>
-<summary>chat.completions</summary>
-
-```TXT
-<Text answer>
-```
-</details>
-
-<details>
-<summary>images.generate</summary>
-
-```json
-{
-  "created": 1710002222,
-  "data": [
-    {"b64_json": "<base64 PNG data>"}
-  ]
-}
-```
-</details>
-
-<details>
-<summary>images.edit</summary>
-
-```json
-{
-  "created": 1710002223,
-  "data": [
-    {"b64_json": "<base64 PNG data>"}
-  ]
-}
-```
-</details>
 
 ---
 
@@ -363,13 +317,14 @@ open("hello.wav", "wb").write_bytes(base64.b64decode(audio.choices[0].message.au
 | Endpoint | Статус |
 |----------|--------|
 | `chat.completions` | ✅ |
+| `responses` | ✅ |
 | `images.generate`  | ✅ |
-| `images.edit`      | ⚠️ |
+| `images.edit`      | ✅ |
 
 ## 4. Модели
 ```python
 from openai import OpenAI
-print(OpenAI(base_url="https://cody.su/api/v1", api_key="...").models.list())
+print(OpenAI(base_url="https://codyapi.ru/v1", api_key="cody-...").models.list())
 ```
 
 #### Поддерживаемые модели  
@@ -378,7 +333,8 @@ print(OpenAI(base_url="https://cody.su/api/v1", api_key="...").models.list())
 
 ## 5. Ограничения
 - 40 запросов в минуту
-- 20 запросов в секунду  
+- 20 запросов в секунду
+- Лимиты по кредитам, выдаются каждому клиенту по-разному
 Обновления публикуются в [Telegram-канале](https://t.me/codyapi).
 
 ## 6. Безопасность и конфиденциальность
