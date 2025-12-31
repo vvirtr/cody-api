@@ -1,6 +1,6 @@
 # Comprehensive Model Catalog
 
-> Last updated: 2025-08-11
+> Last updated: 2025-31-12
 >
 > Models are grouped first by provider (family) and then by their primary modality / task.
 > Use your browser’s search or the table of contents to jump quickly.
@@ -17,11 +17,12 @@
 
 - [OpenAI](#openai)
 - [Google](#google)
+- [Anthropic](#anthropic)
+- [Perplexity](#perplexity)
+- [Minimax](#minimax)
 - [Zhipu AI](#zhipu-ai)
-- [Qwen](#qwen)
-- [DeepSeek](#deepseek)
 - [Moonshot](#moonshot)
-- [Black Forest Labs](#black-forest-labs)
+- [DeepSeek](#deepseek)
 </details>
 
 ---
@@ -31,18 +32,20 @@
 <summary>Click to expand</summary>
 
 ### Text-gen
+* gpt-5.2-pro
+* gpt-5.2
 * gpt-5-mini
 * gpt-5-nano
-* gpt-oss-120b:cerebras
-* gpt-oss-120b
-* gpt-oss-20b
-* gpt-4.1
-* gpt-4.1-mini
-* gpt-4.1-nano
-* gpt-4o-mini
+* o3
+* gpt-5.1
+* gpt-4o
 
-### TTS
-* gpt-4o-mini-audio-preview
+### Image-gen
+* gpt-image-1.5
+
+### Video-gen
+* sora-2
+* sora-2-pro
 </details>
 
 ---
@@ -52,9 +55,49 @@
 <summary>Click to expand</summary>
 
 ### Text-gen
-* gemini-2.5-pro
-* gemini-2.5-flash
-* gemini-2.5-flash-lite
+* gemini-3-pro-preview
+* gemini-3-flash-preview
+
+### Image-gen
+* nano-banana-pro
+
+### Video-gen
+* veo-3.1
+* veo-3.1-fast
+</details>
+
+---
+
+## Anthropic
+<details>
+<summary>Click to expand</summary>
+
+### Text-gen
+* claude-opus-4.5
+* claude-sonnet-4.5
+* claude-haiku-4.5
+</details>
+
+---
+
+## Perplexity
+<details>
+<summary>Click to expand</summary>
+
+### Text-gen
+* sonar-deep-research
+* sonar-reasoning-pro
+* sonar-pro
+</details>
+
+---
+
+## Minimax
+<details>
+<summary>Click to expand</summary>
+
+### Text-gen
+* minimax-m2.1
 </details>
 
 ---
@@ -64,30 +107,7 @@
 <summary>Click to expand</summary>
 
 ### Text-gen
-* glm-4.5
-</details>
-
----
-
-## Qwen
-<details>
-<summary>Click to expand</summary>
-
-### Text-gen
-* qwen3-235b-a22b-thinking
-* qwen3-coder-480b-a35b:cerebras
-* qwen3-coder-480b-a35b
-</details>
-
----
-
-## DeepSeek
-<details>
-<summary>Click to expand</summary>
-
-### Text-gen
-* deepseek-r1
-* deepseek-v3
+* glm-4.7
 </details>
 
 ---
@@ -97,16 +117,15 @@
 <summary>Click to expand</summary>
 
 ### Text-gen
-* kimi-k2
+* kimi-k2-thinking
 </details>
 
 ---
 
-## Black Forest Labs
+## DeepSeek
 <details>
 <summary>Click to expand</summary>
 
-### Img-gen
-FLUX.1-dev
-FLUX.1-kontext
+### Text-gen
+* deepseek-v3.2
 </details>
