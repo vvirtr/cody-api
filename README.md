@@ -36,6 +36,8 @@ Here is the updated English version of the documentation, aligned with the conte
 ## 1. Get an API Key
 Contact the API administrator on Telegram.
 
+If you want check your key info, send request with your key to https://codyapi.ru/v1/me.
+
 ## 2. Quick Start (Python + OpenAI SDK)
 
 ### Text
@@ -237,6 +239,8 @@ Updates are published in the [Telegram channel](https://t.me/codyapi).
 
 ## 1. Получить API-ключ
 Напишите администратору API в Telegram.
+
+Если вы хотите узнать информацию о вашем ключе, пошлите запрос с вашим ключом на https://codyapi.ru/v1/me.
 
 ## 2. Быстрый старт (Python + OpenAI SDK)
 
