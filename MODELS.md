@@ -42,10 +42,6 @@
 
 ### Image-gen
 * gpt-image-1.5
-
-### Video-gen
-* sora-2
-* sora-2-pro
 </details>
 
 ---
@@ -60,10 +56,6 @@
 
 ### Image-gen
 * nano-banana-pro
-
-### Video-gen
-* veo-3.1
-* veo-3.1-fast
 </details>
 
 ---
