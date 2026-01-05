@@ -11,6 +11,7 @@
 Here is the updated English version of the documentation, aligned with the content of the provided Russian text:
 
 # Cody API
+**The project is currently closed to the general public.**
 
 **Free, unlimited access to modern language and multimodal models via an OpenAI-compatible endpoint.**
 
@@ -215,7 +216,7 @@ Updates are published in the [Telegram channel](https://t.me/codyapi).
 
 <a id="русский"></a>
 # Cody API
-
+**Проект пока закрыт для общего доступа.**
 **Бесплатный безлимитный доступ к современным языковым и мультимодальным моделям через совместимый с OpenAI endpoint.**
 
 ### Оглавление
