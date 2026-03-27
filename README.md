@@ -8,8 +8,6 @@
 </p>
 
 <a id="english"></a>
-Here is the updated English version of the documentation, aligned with the content of the provided Russian text:
-
 # Cody API
 **The project is currently closed to the general public.**
 
